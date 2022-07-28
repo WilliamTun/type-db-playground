@@ -1,0 +1,5 @@
+match 
+$disease isa disease, has disease_name "Babesiosis"; 
+$gene isa gene,  #has gene_identifier "ENSP00000357149";
+$1 ($gene, $disease) isa gene-disease-association; 
+limit 20; 

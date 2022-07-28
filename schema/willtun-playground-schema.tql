@@ -1,0 +1,36 @@
+######
+# HumanDiseaseTextMining
+######
+
+define 
+gene sub entity,
+    owns gene_name @key,
+    owns gene_identifier, 
+    plays gene-disease-association:gene;
+
+
+disease sub entity,
+    owns disease_name @key,
+    owns disease_identifier,
+    plays gene-disease-association:disease;
+
+gene-disease-association sub relation,
+    owns z_score,
+    owns confidence_score,
+    relates gene,
+    relates disease;
+
+
+
+## Attributes
+# gene attributes: 
+    gene_name sub attribute, value string;
+    gene_identifier sub attribute, value string; 
+
+# disease attributes
+    disease_name sub attribute, value string; 
+    disease_identifier sub attribute, value string; 
+
+# relationship attributes 
+    z_score sub attribute, value string;
+    confidence_score sub attribute, value string;
