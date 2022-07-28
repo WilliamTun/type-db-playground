@@ -56,40 +56,17 @@ def humanDiseaseTextMiningMigrator(session, num_threads, batch_size):
             pass 
 
         
-
-            #typeql = typeql + f"insert $r (target-gene: $g, interacting-drug: $d) isa gene-disease-association;"
-            #batch.append(typeql)
-            #current_gene_name = gene_name
-
-        # Might have to update schema as there is no defined associated-gene or z score attribute:
-        #typeql = f"""
-        #        match $g isa gene, has gene_name "{gene_name}";
-        #              $d isa disease, has disease_name"{disease_name}";
-        #              insert $r (associated-gene: $g, associated-disease: $d) isa gene-disease-association, has z_score {z_score};
-        #        """
-
-        #typeql = f"""
-        #        match $g isa gene, has gene_name "{gene_name}";
-        #        $d isa disease, has disease_name"{disease_name}";
-        #        insert $r (gene: $g, disease: $d) isa gene-disease-association;
-        #        """
-
-        #batch.append(typeql)
-        #total += 1
-
-
-        #typeql = f'''insert $d isa disease, has disease_identifier "{disease_identifier}", has disease_name "{disease_name}";'''
-        #typeql = f'''insert $r (gene: {gene_name}, disease: {disease_name}) isa gene-disease-association;'''
-
+        ## INSERT RELATIONSHIPS -> need to be done separately after running above tql query
+        ## note. in the migrator.py script, you also need to comment out the "initialise database" function 
+        ##       which is currently has a parameter that forces the previous schema + associated data to be overwritten 
         #typeql = f'''
-        #        match
-        #        $g isa gene, has gene_name {gene_name};
-        #        $d isa disease, has disease_name {disease_name};
-        #        insert $r (gene: $g, disease: $disease) isa gene-disease-association;
-        #        '''
+        #match
+        #    $g isa gene, has gene_name "{gene_name}";
+        #    $d isa disease, has disease_name "{disease_name}";
+        #    insert $gda (gene: $g, disease: $d) isa gene-disease-association;
+        #    $gda has z_score "{z_score}";
+        #'''
 
-        #batch.append(typeql)
-        #total += 1
 
         if len(batch) == batch_size:
             batches.append(batch)
